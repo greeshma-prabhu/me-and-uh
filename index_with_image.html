@@ -160,21 +160,65 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 760px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
             margin: 0 auto 50px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        /* Desktop: 3-2 layout */
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 900px;
+            }
+
+            .card:nth-child(4),
+            .card:nth-child(5) {
+                grid-column: auto;
+            }
+
+            .card:nth-child(n+4) {
+                margin: 0 auto;
+                width: 100%;
+                max-width: 240px;
+            }
+
+            .grid > :nth-child(4) {
+                grid-column: 2 / 3;
+            }
+
+            .grid > :nth-child(5) {
+                grid-column: 3 / 4;
+            }
+        }
+
+        /* Tablet: 2 per row */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+            }
+        }
+
+        /* Mobile: 1 per row */
+        @media (max-width: 767px) {
+            .grid {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+                gap: 25px;
+            }
         }
 
         .row2 {
-            display: flex;
-            justify-content: center;
-            grid-column: 1 / -1;
-            gap: 20px;
+            display: none;
         }
 
         .card {
-            width: 220px;
+            width: 100%;
+            height: 300px;
             background: white;
             border-radius: 14px;
             overflow: hidden;
@@ -182,6 +226,8 @@
             transform: rotate(-2deg);
             transition: all 0.3s ease;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:nth-child(even) {
@@ -195,21 +241,27 @@
 
         .card img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
-            object-position: top center;
+            object-position: center;
             background: linear-gradient(135deg, #f8c8d4, #e8a8be);
+            flex-shrink: 0;
         }
 
 
 
         .card-caption {
-            padding: 20px;
+            padding: 15px 20px;
             text-align: center;
             font-family: 'Playfair Display', serif;
             font-size: 18px;
             color: #b76e79;
             font-weight: 700;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
         }
 
         /* Section 3: Love Paragraph */
@@ -618,16 +670,13 @@
                 <img src="./images/always.png" alt="Always">
                 <div class="card-caption">Always 🥰</div>
             </div>
-
-            <div class="row2">
-                <div class="card">
-                    <img src="./images/forever.png" alt="Forever">
-                    <div class="card-caption">Forever 💜</div>
-                </div>
-                <div class="card">
-                    <img src="./images/just-us.png" alt="Just us">
-                    <div class="card-caption">Just us 👫</div>
-                </div>
+            <div class="card">
+                <img src="./images/forever.png" alt="Forever">
+                <div class="card-caption">Forever 💜</div>
+            </div>
+            <div class="card">
+                <img src="./images/just-us.png" alt="Just us">
+                <div class="card-caption">Just us 👫</div>
             </div>
         </div>
         <div class="scroll-btn" onclick="scrollToSection('section3')">

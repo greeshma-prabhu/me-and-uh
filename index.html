@@ -160,23 +160,51 @@
 
         /* Pinterest-style layout */
         .grid {
-            column-count: 3;
-            column-gap: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
             max-width: 1000px;
+            margin: 0 auto 50px;
             width: 100%;
-            margin-bottom: 50px;
+            padding: 0 20px;
+        }
+
+        /* Desktop: 3-2 layout */
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 900px;
+            }
+        }
+
+        /* Tablet: 2 per row */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+            }
+        }
+
+        /* Mobile: 1 per row */
+        @media (max-width: 767px) {
+            .grid {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+                gap: 25px;
+            }
         }
 
         .card {
-            display: inline-block;
             width: 100%;
+            height: 300px;
             background: white;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(183, 110, 121, 0.15);
             transition: all 0.3s ease;
             cursor: pointer;
-            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
@@ -186,20 +214,26 @@
 
         .card img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
-            object-position: top center;
+            object-position: center;
             border: 3px solid #b76e79;
             background: linear-gradient(135deg, #f8c8d4, #e8a8be);
+            flex-shrink: 0;
         }
 
         .card-caption {
-            padding: 20px;
+            padding: 15px 20px;
             text-align: center;
             font-family: 'Playfair Display', serif;
             font-size: 18px;
             color: #b76e79;
             font-weight: 700;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
         }
 
         /* Section 3: Love Paragraph */
