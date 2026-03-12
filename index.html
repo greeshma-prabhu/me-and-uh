@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Cutoo 🌸 — For You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #fff5f7 0%, #fff0f3 100%);
+            color: #5a4a4a;
+            overflow-x: hidden;
+        }
+
+        /* Floating Background Hearts */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(10deg); opacity: 0.6; }
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translateX(0px); }
+            50% { transform: translateX(30px); }
+        }
+
+        .background-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 40px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        .heart:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 7s; }
+        .heart:nth-child(2) { left: 80%; top: 30%; animation-delay: 1s; animation-duration: 8s; }
+        .heart:nth-child(3) { left: 50%; top: 10%; animation-delay: 2s; animation-duration: 7.5s; }
+        .heart:nth-child(4) { left: 20%; top: 60%; animation-delay: 1.5s; animation-duration: 9s; }
+        .heart:nth-child(5) { left: 85%; top: 70%; animation-delay: 2.5s; animation-duration: 8s; }
+        .heart:nth-child(6) { left: 15%; top: 80%; animation-delay: 0.5s; animation-duration: 7s; }
+
+        /* Sections */
+        section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            z-index: 2;
+        }
+
+        /* Section 1: Hero */
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 200, 212, 0.1) 100%);
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 10vw, 80px);
+            color: #c0392b;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 3vw, 20px);
+            line-height: 1.8;
+            max-width: 600px;
+            color: #6a5a5a;
+            margin-bottom: 50px;
+            animation: fadeInUp 1.2s ease-out;
+            font-weight: 300;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll Button */
+        .scroll-btn {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-btn p {
+            font-size: 14px;
+            color: #b76e79;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .scroll-btn span {
+            font-size: 24px;
+            color: #c0392b;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Section 2: Memory Board */
+        .memory-board {
+            background: linear-gradient(135deg, rgba(248, 200, 212, 0.05) 0%, rgba(255, 255, 255, 0.95) 100%);
+            flex-direction: column;
+        }
+
+        .memory-board h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(40px, 8vw, 60px);
+            color: #b76e79;
+            margin-bottom: 60px;
+            letter-spacing: 1px;
+        }
+
+        /* Pinterest-style layout */
+        .grid {
+            column-count: 3;
+            column-gap: 30px;
+            max-width: 1000px;
+            width: 100%;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            display: inline-block;
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(183, 110, 121, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(192, 57, 43, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            object-position: center;
+            border: 3px solid #b76e79;
+            background: linear-gradient(135deg, #f8c8d4, #e8a8be);
+        }
+
+        .card-caption {
+            padding: 20px;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #b76e79;
+            font-weight: 700;
+        }
+
+        /* Section 3: Love Paragraph */
+        .love-paragraph {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* padding removed since card handles spacing */
+        }
+
+        .love-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 50px 60px;
+            max-width: 650px;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(180, 80, 100, 0.1);
+            text-align: center;
+        }
+
+        .love-text {
+            font-size: clamp(18px, 2.5vw, 22px);
+            line-height: 1.8;
+            color: #5a4a4a;
+            font-weight: 300;
+        }
+
+        /* Floating animation */
+        @keyframes floatUp {
+            0% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-25vh) translateX(10px); }
+            50% { transform: translateY(-50vh) translateX(-10px); }
+            75% { transform: translateY(-75vh) translateX(5px); }
+            100% { transform: translateY(-100vh) translateX(0); }
+        }
+
+        .floating-heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            animation: floatUp 8s ease-in-out infinite;
+        }
+
+        .floating-heart::before,
+        .floating-heart::after {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            width: 15px;
+            height: 22.5px;
+            background: #ff69b4;
+            border-radius: 15px 15px 0 0;
+            transform-origin: 0 100%;
+        }
+
+        .floating-heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .floating-heart.red::before,
+        .floating-heart.red::after {
+            background: #ff1493;
+        }
+
+        .floating-heart.pink::before,
+        .floating-heart.pink::after {
+            background: #ffb6c1;
+        }
+
+        .floating-balloon {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: radial-gradient(ellipse at center, #ffb6c1 0%, #ff1493 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: floatUp 10s ease-in-out infinite;
+        }
+
+        .floating-balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 3px solid transparent;
+            border-right: 3px solid transparent;
+            border-top: 8px solid #ff1493;
+        }
+
+        .floating-balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 15px;
+            background: #000;
+        }
+
+        .floating-balloon.white {
+            background: white;
+        }
+
+        .scroll-up-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-up-btn span {
+            font-size: 24px;
+            color: #c0392b;
+            margin-bottom: 10px;
+        }
+
+        .scroll-up-btn p {
+            font-size: 14px;
+            color: #b76e79;
+            font-weight: 500;
+        }
+
+        /* Section 4: Proposal */
+        .proposal {
+            background: linear-gradient(135deg, rgba(248, 200, 212, 0.15) 0%, rgba(255, 255, 255, 0.95) 100%);
+            flex-direction: column;
+        }
+
+        .proposal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 12vw, 90px);
+            color: #c0392b;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .proposal-subtitle {
+            font-size: 18px;
+            color: #b76e79;
+            margin-bottom: 60px;
+            font-style: italic;
+            font-weight: 300;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 18px 50px;
+            font-size: 20px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #f8c8d4, #e89bb0);
+            color: white;
+            box-shadow: 0 10px 30px rgba(248, 200, 212, 0.4);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(192, 57, 43, 0.3);
+        }
+
+        .btn-no {
+            background: #e0e0e0;
+            color: #666;
+            position: relative;
+        }
+
+        .btn-no:hover {
+            transform: translate(80px, -50px);
+        }
+
+        /* Overlay for Yes Result */
+        .love-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(192, 57, 43, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeToRed 0.6s ease-out;
+        }
+
+        .love-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeToRed {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .love-overlay h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(60px, 15vw, 120px);
+            color: white;
+            text-align: center;
+            letter-spacing: 3px;
+            animation: scaleInHeart 0.8s ease-out;
+        }
+
+        @keyframes scaleInHeart {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Heart Rain */
+        .heart-rain {
+            position: fixed;
+            top: -50px;
+            width: 40px;
+            pointer-events: none;
+            font-size: 40px;
+            animation: fall 3s linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Sparkle Animation */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.3; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 30px;
+            animation: sparkle 1s ease-out forwards;
+            pointer-events: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .button-container {
+                gap: 15px;
+            }
+
+            .btn {
+                padding: 15px 35px;
+                font-size: 16px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .love-text {
+                font-size: 18px;
+                line-height: 1.6;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 30px 15px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .proposal h2 {
+                font-size: 48px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .btn-no:hover {
+                transform: translate(40px, -40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Hearts -->
+    <div class="background-hearts">
+        <div class="heart">❤️</div>
+        <div class="heart">💗</div>
+        <div class="heart">❤️</div>
+        <div class="heart">💕</div>
+        <div class="heart">❤️</div>
+        <div class="heart">💗</div>
+    </div>
+
+    <!-- Section 1: Hero -->
+    <section class="hero" id="section1">
+        <h1>Hey Cutoo 🌸</h1>
+        <p>
+            We are SO proud of you, my dear hubby. You work so hard every single day — 
+            even in the scorching heat, you never stop. You never give up. 
+            Success might be taking its time, but that only means it's saving itself for someone 
+            who truly deserves it — and that's YOU. Luxury isn't what defines you; 
+            your strength, your patience, and your love do. 
+            I see you. I'm proud of you. Every. Single. Day. 💪🏽❤️
+        </p>
+        <div class="scroll-btn" onclick="scrollToSection('section2')">
+            <p>Keep scrolling, this is for you...</p>
+            <span>↓</span>
+        </div>
+    </section>
+
+    <!-- Section 2: Memory Board -->
+    <section class="memory-board" id="section2">
+        <h2>Our Little World 🫶</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x300?text=Us+%F0%9F%92%95" alt="Us">
+                <div class="card-caption">Us 💕</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/300x300?text=That+day+%F0%9F%8C%85" alt="That day" style="object-fit: cover; object-position: top center;">
+                <div class="card-caption">That day 🌅</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/300x300?text=Always+%F0%9F%A5%B0" alt="Always" style="object-fit: cover; object-position: top center;">
+                <div class="card-caption">Always 🥰</div>
+            </div>
+            <div class="card">
+                <img src="our_moments.jpg" alt="Our moments">
+                <div class="card-caption">Our moments ✨</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/300x300?text=Forever+%F0%9F%92%9C" alt="Forever">
+                <div class="card-caption">Forever 💜</div>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/300x300?text=Just+us+%F0%9F%91%AB" alt="Just us">
+                <div class="card-caption">Just us 👫</div>
+            </div>
+        </div>
+        <div class="scroll-btn" onclick="scrollToSection('section3')">
+            <p>There's more...</p>
+            <span>↓</span>
+        </div>
+    </section>
+
+    <!-- Section 3: Love Paragraph -->
+    <section class="love-paragraph" id="section3">
+        <!-- Floating Hearts and Balloons -->
+        <div class="floating-heart pink" style="left: 10%; bottom: 20%; animation-delay: 0s;"></div>
+        <div class="floating-heart red" style="left: 15%; bottom: 60%; animation-delay: 2s;"></div>
+        <div class="floating-heart pink" style="left: 20%; bottom: 80%; animation-delay: 4s;"></div>
+        <div class="floating-balloon" style="left: 5%; bottom: 40%; animation-delay: 1s;"></div>
+        <div class="floating-balloon white" style="left: 25%; bottom: 10%; animation-delay: 3s;"></div>
+
+        <div class="floating-heart red" style="right: 10%; bottom: 30%; animation-delay: 1.5s;"></div>
+        <div class="floating-heart pink" style="right: 15%; bottom: 70%; animation-delay: 3.5s;"></div>
+        <div class="floating-heart red" style="right: 20%; bottom: 90%; animation-delay: 5s;"></div>
+        <div class="floating-balloon" style="right: 5%; bottom: 50%; animation-delay: 2.5s;"></div>
+        <div class="floating-balloon white" style="right: 25%; bottom: 15%; animation-delay: 4.5s;"></div>
+
+        <div class="love-card">
+            <p class="love-text">
+                Since the very first day of us, through every fight, every silence, every storm — 
+                we always found our way back to each other. That's not luck. That's love. 
+                No matter what this world throws at us, I know WE are unbreakable. 
+                We started from nothing and we're going to build our empire — 
+                together, brick by brick, dream by dream. You are not behind in life. 
+                You are exactly where you need to be, growing into the man who's going to make us proud. 
+                I believe in you more than you believe in yourself. 
+                And I will be right here — always. 🏰✨
+            </p>
+        </div>
+
+        <div class="scroll-up-btn" onclick="scrollToSection('section4')">
+            <span>↓</span>
+            <p>One more thing...</p>
+        </div>
+    </section>
+
+    <!-- Section 4: Proposal -->
+    <section class="proposal" id="section4">
+        <h2>Will you marry me? 💍</h2>
+        <p class="proposal-subtitle">okay okay we're already together... but still 🥺</p>
+        <div class="button-container">
+            <button class="btn btn-yes" onclick="celebrateYes()">YES 💖</button>
+            <button class="btn btn-no" id="noBtn" onclick="escapeButton()">NO 😤</button>
+        </div>
+    </section>
+
+    <!-- Love Overlay -->
+    <div class="love-overlay" id="loveOverlay">
+        <h1>I LOVE YOU ❤️</h1>
+    </div>
+
+    <script>
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Escape button function
+        function escapeButton() {
+            const noBtn = document.getElementById('noBtn');
+            const randomX = Math.random() * 300 - 150;
+            const randomY = Math.random() * 300 - 150;
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        // Add hover escape for the NO button
+        document.getElementById('noBtn').addEventListener('mouseover', function() {
+            escapeButton();
+        });
+
+        // Celebrate Yes function
+        function celebrateYes() {
+            // Show overlay
+            const overlay = document.getElementById('loveOverlay');
+            overlay.classList.add('active');
+
+            // Create heart rain
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    createHeartRain();
+                }, i * 100);
+            }
+
+            // Create sparkles
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    createSparkle();
+                }, i * 150);
+            }
+
+            // Hide overlay after 5 seconds
+            setTimeout(() => {
+                overlay.classList.remove('active');
+            }, 5000);
+        }
+
+        // Create falling hearts
+        function createHeartRain() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-rain');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        // Create sparkles
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.innerHTML = '✨';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * (window.innerHeight * 0.7) + 'px';
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+                sparkle.remove();
+            }, 1000);
+        }
+
+        // Prevent NO button click
+        document.getElementById('noBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            escapeButton();
+        });
+    </script>
+</body>
+</html>
